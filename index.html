@@ -55,27 +55,112 @@
     <script src="app/scripts/app.js"></script>
     <script src="app/scripts/libs/angular-1.2-ui-router.js"></script>
     
+	<!-- 定義各自頁面的 state 是該做什麼事情，用什麼畫面並動態載入 html 檔。 State 功能由 angular-ui-router 提供 -->
+	<!-- demo.js
+		module: demo
+		主要 CRUD 頁面的狀態設定 (掛 ParseServices, ExternalDataServices) 
+	-->
     <script src="app/scripts/modules/states/demo.js"></script>
+	<!-- features.js
+		module: features
+		(掛 demo, ParseService, ExternalDataService)
+		Features 頁面狀態設定
+	--> 
     <script src="app/scripts/modules/states/features.js"></script>
+	<!-- facebook.js
+		module: facebook 
+		(掛 ParseServices, ExternalDataServices)
+		Facebook 範例頁面狀態設定狀態指定的 html template  
+	--> 
     <script src="app/scripts/modules/states/facebook.js"></script>
+	<!-- about.js
+		module: about 
+		(掛 demo, ParseServices, ExternalDataServices)
+		Other Features 頁面狀態設定  
+	--> 
     <script src="app/scripts/modules/states/about.js"></script>
-    
+
+	<!-- 改變可視畫面 -->
+	<!-- bootyShake.js
+		module: app
+		directive: bootyShake
+		改變畫面上元件的 css class
+		(掛 $timeout)
+	-->
     <script src="app/scripts/modules/directives/bootyShake.js"></script>
+	<!-- forms.js
+		module: forms
+		directive: editMonsterForm
+		產生表單的畫面
+		(掛 ParseQueryAngular, $location)
+	-->
     <script src="app/scripts/modules/directives/forms.js"></script>
+	<!-- loader.js
+		module: app
+		directive: viewLoading
+		產生 loading 中的畫面
+	-->
     <script src="app/scripts/modules/directives/loader.js"></script>
-    
+
+	<!-- 定義各種頁面的 controllers -->
+	<!-- menu.js 
+		module: app 
+		controller: MenuController
+		主要框架旁的小選單
+		(掛 $scope, $state)
+	-->
     <script src="app/scripts/controllers/menu.js"></script>
+	<!-- master-detail.js 
+		module: demo 
+		controller: MasterDetailController
+		主框架左側的主選單，以及定義個頁面中的主選單，包含路徑和各個選單點下去會變換到的狀態
+		(掛 $rootScope, $location, $scope, $state, MonsterService, mosters)
+	-->
     <script src="app/scripts/controllers/master-detail.js"></script>
+	<!-- detail.js 
+		module: demo
+		controller: DetailController
+		顯示內容區塊的狀態，根據 id 去取得對應資料傳給畫面
+		(掛 $rootScope, $scope, $state, $stateParams, MonsterService) 
+	-->
     <script src="app/scripts/controllers/detail.js"></script>
+	<!-- facebook-example.js 
+		module:facebook
+		controller: FacebookExampleController
+		(掛 $rootScope, $scope, $state, $stateParams, FacebookAngularPatch, ParseQueryAngular)
+	-->
     <script src="app/scripts/controllers/facebook-example.js"></script>
   
     <!-- Parse specific -->
-    <script src="app/scripts/services/ParseServices.js"></script>
+	<!-- ParseServices.js: Parse 主要 Services 進入點
+		module: ParseSevices
+		1. 初始化 Parse 官方物件 (ParseSDK factory)
+		2. 初始化 Parse 中的 Facebook (ParseSDK factory)
+		3. 加掛擴充到 Parse 官方物件 (ExtendParseSDK 加掛 ParseAbstractService)
+	-->
+	<script src="app/scripts/services/ParseServices.js"></script>
+	<!-- ParseQueryAngular.js: 
+		module: ParseSevices
+		1. 包裝 Parse 的 request 成 angular promise  (ParseQueryAngular factory, 加掛 $q, $timeout)
+	-->
     <script src="app/scripts/services/ParseQueryAngular.js"></script>
+	<!-- _ParseObjects.js:
+		module: ExternalDataSevices
+		1. 包裝擴充的 functions 後丟出來 (ParseAbstractServices, 加掛 ParseQueryAngular)
+	-->
     <script src="app/scripts/modules/data/_ParseObjects.js"></script>
+	<!-- Monster.js
+		module: ExternalDataServices
+		1. 包裝開發者自己的 Parse Object  (MonsterService, 加掛 ParseQueryAngular）
+	-->
     <script src="app/scripts/modules/data/Monsters.js"></script>
     
     <!-- Facebook angular bindings -->
+	<!-- FacebookAngularPatch.js
+		module: FacebookPatch
+		1. 包裝 Facebook API (FacebookAngularPatch)
+		2. 擴充 Facebook API (FacebookAngularPatch)
+	-->
     <script src="app/scripts/services/FacebookAngularPatch.js"></script>
 
     <!-- endbuild -->
@@ -104,6 +189,9 @@
   
     <!-- Async resolve promise when FB SDK is loaded, this triggers Parse.FacebookUtils.init() -->
     <script>
+      // 宣告一個全域的 Angular Deferred 非同步給 Facebook 用
+	  // fbPromise 在 Parse 的初始化 (app/scripts/services/ParseSevices.js 的 ParseSDK factory 裡) 之後，
+	  // 初始 Facebook (Parse.FacebookUtils.init()) 會使用
       var fbDeferred = $.Deferred();
       window.fbPromise = fbDeferred.promise();
       window.fbAsyncInit = function() {
@@ -111,10 +199,8 @@
       };
     </script>
 
-
-    
-
     <script type="text/javascript">
+      // 手動把 document 指定為 app (ng-app) 
       // manual bootstrap
       angular.element(document).ready(function() {
         angular.bootstrap(document, ['app']);

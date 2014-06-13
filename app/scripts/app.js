@@ -1,4 +1,24 @@
-angular.module('app', ['ui.router.compat' /* this is for ui-router */, 'ngAnimate',  /* states */ 'features', 'facebook', 'demo' , 'about', 'ParseServices' /* this is the Parse SDK */, 'ExternalDataServices' /* this is where we define all our models and collections */, 'forms' /* an example directive */, 'FacebookPatch' /* our facebook angular wrapper so we can use FB.apiAngular instead of FB.api */])
+angular.module('app', [
+		'ui.router.compat' /* this is for ui-router */, 
+		'ngAnimate',  
+		
+		// 狀態及頁面設定 
+		'features', // features.js 
+		'facebook', // facebook.js
+		'demo' , // demo.js
+		'about', // about.js
+		
+		// ParseSDK, 對應檔案: ParseServices.js, ParseQueryAngular.js  
+		'ParseServices',
+		// 定義資料存取及 model, 對應檔案: _ParseObjects.js, Monsters.js
+		'ExternalDataServices', 
+
+		// forms.js
+		'forms' /* an example directive */, 
+
+		// FacebookAngularPathc.js
+		'FacebookPatch' /* our facebook angular wrapper so we can use FB.apiAngular instead of FB.api */
+		])
 
 // hack to disable auto scrolling on hashchange because we're using ui-router to manage states, instead of the core angular router which cannot handle states
 // discussion on this here: https://github.com/angular-ui/ui-router/issues/110

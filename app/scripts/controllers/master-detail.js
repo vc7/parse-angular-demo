@@ -115,7 +115,8 @@ angular.module('demo')
 
   $scope.goBackTo = function(state) {
     
-    $state.transitionTo(state);
+    // $state.transitionTo([stateName]) 來跳轉在 $stateProvide 指定的 [stateName] 的畫面
+	$state.transitionTo(state);
     // $scope.masterDetailCtrl.animate = { enter: 'waveForward-enter', leave: 'waveForward-leave' };
   }
 

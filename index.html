@@ -133,14 +133,14 @@
   
     <!-- Parse specific -->
 	<!-- ParseServices.js: Parse 主要 Services 進入點
-		module: ParseSevices
+		module: ParseServices
 		1. 初始化 Parse 官方物件 (ParseSDK factory)
 		2. 初始化 Parse 中的 Facebook (ParseSDK factory)
 		3. 加掛擴充到 Parse 官方物件 (ExtendParseSDK 加掛 ParseAbstractService)
 	-->
 	<script src="app/scripts/services/ParseServices.js"></script>
 	<!-- ParseQueryAngular.js: 
-		module: ParseSevices
+		module: ParseServices
 		1. 包裝 Parse 的 request 成 angular promise  (ParseQueryAngular factory, 加掛 $q, $timeout)
 	-->
     <script src="app/scripts/services/ParseQueryAngular.js"></script>

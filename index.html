@@ -39,8 +39,11 @@
 
     <div class="row-fluid med-grey-back dark-dust min-height-1500">
 
+	  <!-- 用 ng-include 載入 header.html -->
       <div ng-include src="'app/views/header.html'"></div>
-      <div view-loading ng-show="isViewLoading"></div>
+	  <!-- 偵測是否載入中 -->
+	  <div view-loading ng-show="isViewLoading"></div>
+	  <!-- ui-view 會根據 state 換成他該顯示的內容 -->
       <div ui-view class="first-load"></div>
 
     </div>
